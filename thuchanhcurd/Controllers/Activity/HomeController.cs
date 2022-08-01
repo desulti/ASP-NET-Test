@@ -41,7 +41,7 @@ namespace thuchanhcurd.Controllers
         {
             return View(new ErrorViewModel { RequestId = System.Diagnostics.Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-        public object JTableCast([FromBody] Activity jTablePara)
+        public object JTableCast([FromBody] ModelCast jTablePara)
         {
             try
             {
@@ -86,6 +86,54 @@ namespace thuchanhcurd.Controllers
                 var jdata = JTableHelper.JObjectTable(new List<object>(), jTablePara.Draw, 0, "ID", "ActivityCode", "Title", "Duration", "Unit", "Located", "Status", "Desc", "ShapeJson", "Group", "Type", "WorkflowCode", "CreatedBy", "CreatedTime", "UpdatedBy", "UpdatedTime", "DeletedBy", "DeletedTime", "IsDeleted", "NestedWF", "RoleDefault", "ListGroupData");
                 return Json(jdata);
             }
+        }
+        public class ModelCast
+        {
+            internal readonly int Draw;
+
+            public int ID { get; set; }
+
+            public string ActivityCode { get; set; }
+
+            public string Title { get; set; }
+
+            public decimal Duration { get; set; }
+
+            public string Unit { get; set; }
+
+            public string Located { get; set; }
+
+            public string Status { get; set; }
+
+            public string Desc { get; set; }
+
+            public string ShapeJson { get; set; }
+
+            public string Group { get; set; }
+
+            public string Type { get; set; }
+
+            public string WorkflowCode { get; set; }
+
+            public string CreatedBy { get; set; }
+
+            public DateTime? CreatedTime { get; set; }
+
+            
+            public string UpdatedBy { get; set; }
+
+            public DateTime? UpdatedTime { get; set; }
+
+            
+            public string DeletedBy { get; set; }
+
+            public DateTime? DeletedTime { get; set; }
+
+            public bool IsDeleted { get; set; }
+
+            public string NestedWF { get; set; }
+            public string RoleDefault { get; set; }
+            public string ListGroupData { get; set; }
         }
     }
 }
