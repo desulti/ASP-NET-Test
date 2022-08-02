@@ -24,7 +24,7 @@ namespace thuchanhcurd.Controllers
             return View();
         }
 
-        public object JTableModelActivity([FromBody] ModelActivity jTablePara)
+        public object JtableActivity([FromBody] ModelActivity jTablePara)
         {
             try
             {
@@ -36,37 +36,20 @@ namespace thuchanhcurd.Controllers
                          x.ID,
                          x.ActivityCode,
                          x.Title,
-                         x.Duration,
-                         x.Unit,
-                         x.Located,
                          x.Status,
-                         x.Desc,
-                         x.ShapeJson,
                          x.Group,
                          x.Type,
                          x.WorkflowCode,
-                         x.CreatedBy,
-                         x.CreatedTime,
-                         x.UpdatedBy,
-                         x.UpdatedTime,
-                         x.DeletedBy,
-                         x.DeletedTime,
-                         x.IsDeleted,
-                         x.NestedWF,
-                         x.RoleDefault,
-                         x.ListGroupData,
-
-
                      });
 
 
                 var count = data.Count();
-                var jdata = JTableHelper.JObjectTable(data.ToList(), jTablePara.Draw, count, "ID", "ActivityCode", "Title", "Duration", "Unit", "Located", "Status", "Desc", "ShapeJson", "Group", "Type", "WorkflowCode", "CreatedBy", "CreatedTime", "UpdatedBy", "UpdatedTime", "DeletedBy", "DeletedTime", "IsDeleted", "NestedWF", "RoleDefault", "ListGroupData");
+                var jdata = JTableHelper.JObjectTable(data.ToList(), jTablePara.Draw, count, "ID", "ActivityCode", "Title",  "Status",  "Group", "Type", "WorkflowCode");
                 return Json(jdata);
             }
             catch (Exception ex)
             {
-                var jdata = JTableHelper.JObjectTable(new List<object>(), jTablePara.Draw, 0, "ID", "ActivityCode", "Title", "Duration", "Unit", "Located", "Status", "Desc", "ShapeJson", "Group", "Type", "WorkflowCode", "CreatedBy", "CreatedTime", "UpdatedBy", "UpdatedTime", "DeletedBy", "DeletedTime", "IsDeleted", "NestedWF", "RoleDefault", "ListGroupData");
+                var jdata = JTableHelper.JObjectTable(new List<object>(), jTablePara.Draw, 0, "ID", "ActivityCode", "Title", "Status",  "Group", "Type", "WorkflowCode");
                 return Json(jdata);
             }
         }
