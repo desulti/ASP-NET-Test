@@ -31,16 +31,7 @@ namespace thuchanhcurd.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = System.Diagnostics.Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        
         public object JTableCast([FromBody] ModelCast jTablePara)
         {
             try
@@ -135,5 +126,6 @@ namespace thuchanhcurd.Controllers
             public string RoleDefault { get; set; }
             public string ListGroupData { get; set; }
         }
+      
     }
 }
