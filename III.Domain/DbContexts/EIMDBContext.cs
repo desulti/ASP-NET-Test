@@ -28,7 +28,7 @@ namespace ESEIM.Models
         /// Define employee new design
         /// </summary>
         ///
-        
+        public virtual DbSet<CompanyRuleItem> CompanyRuleItems { get; set; }
         public virtual DbSet<LMSSubject> LMSSubjects { get; set; }
         public virtual DbSet<LmsCourse> LmsCourses { get; set; }
         public virtual DbSet<ExamHeader> ExamHeaders { get; set; }
@@ -51,7 +51,6 @@ namespace ESEIM.Models
         public virtual DbSet<CategoryCareer> CategoryCareers { get; set; }
         public virtual DbSet<CommitmentHeader> CommitmentHeaders{ get; set; }
         public virtual DbSet<CommitmentDetail> CommitmentDetails { get; set; }
-        public virtual DbSet<CompanyRuleItem> CompanyRuleItems { get; set; }
         public virtual DbSet<PayScaleDetail> PayScaleDetails { get; set; }
         public virtual DbSet<CareerCatScale> CareerCatScales { get; set; }
         public virtual DbSet<PayDecisionHeader> PayDecisionHeaders { get; set; }
