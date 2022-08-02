@@ -36,7 +36,7 @@ namespace thuchanhcurd.Controllers
                 int intBeginFor = (jTablePara.CurrentPage - 1) * jTablePara.Length;
 
                 // Way 1 using Where
-                var data = _context.Activitys
+                /*var data = _context.Activitys
                .Select(
                      x => new
                      {
@@ -62,10 +62,9 @@ namespace thuchanhcurd.Controllers
                          x.NestedWF,
                          x.RoleDefault,
                          x.ListGroupData,
-                     });
+                     });*/
                 // Way 2 use SQL like LINQ syntax
-                var data2 = from a in _context.Activitys
-                            
+                var query = from a in _context.Activitys                            
                             select new
                             {
                                 a.ID,
@@ -91,11 +90,9 @@ namespace thuchanhcurd.Controllers
                                 a.RoleDefault,
                                 a.ListGroupData,
                             };
-                // End
-
-                var count = data.Count();
-                var data1 = data.OrderUsingSortExpression(jTablePara.QueryOrderBy).Skip(intBeginFor).Take(jTablePara.Length).AsNoTracking().ToList();
-                var jdata = JTableHelper.JObjectTable(data1.ToList(), jTablePara.Draw, count, "ActivityCode", "Duration", "Unit", "Located", "Title",  "Status", "Desc", "ShapeJson", "Group", "Type", "WorkflowCode", "CreatedBy", "CreatedTime", "UpdatedBy", "UpdatedTime", "DeletedBy", "DeletedTime", "IsDeleted", "NestedWF", "RoleDefault", "ListGroupData");
+                var count = query.Count();
+                var data = query.AsQueryable().OrderUsingSortExpression(jTablePara.QueryOrderBy).Skip(intBeginFor).Take(jTablePara.Length).AsNoTracking().ToList();
+                var jdata = JTableHelper.JObjectTable(data.ToList(), jTablePara.Draw, count, "ActivityCode", "Duration", "Unit", "Located", "Title",  "Status", "Desc", "ShapeJson", "Group", "Type", "WorkflowCode", "CreatedBy", "CreatedTime", "UpdatedBy", "UpdatedTime", "DeletedBy", "DeletedTime", "IsDeleted", "NestedWF", "RoleDefault", "ListGroupData");
                 return Json(jdata);
             }
             catch (Exception ex)
