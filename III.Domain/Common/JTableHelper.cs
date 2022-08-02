@@ -50,6 +50,6 @@ namespace FTU.Utils.HelperNet
            jobjectTalbe.Add("data", aaData);
             return jobjectTalbe;
         }
-        
+
     }
 }
