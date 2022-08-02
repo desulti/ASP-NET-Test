@@ -1,4 +1,5 @@
 ﻿using ESEIM.Models;
+using ESEIM.Utils;
 using FTU.Utils.HelperNet;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -23,7 +24,7 @@ namespace thuchanhcurd.Controllers
             return View();
         }
 
-        public object JTableActivity([FromBody] ModelActivity jTablePara)
+        public object JTableModelActivity([FromBody] ModelActivity jTablePara)
         {
             try
             {
@@ -69,7 +70,7 @@ namespace thuchanhcurd.Controllers
                 return Json(jdata);
             }
         }
-        public class ModelActivity
+        public class ModelActivity : JTableModel
         {
             internal readonly int Draw;
 
