@@ -14,8 +14,31 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using thuchanhcurd.Models;
-
+using Newtonsoft.Json;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json.Linq;
+using Newtonsoft;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
+using ESEIM.Models;
+using ESEIM.Utils;
+using FTU.Utils.HelperNet;
+using III.Domain.Enums;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.Extensions.Localization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
 
 namespace thuchanhcurd.Controllers.Activity
 {
@@ -25,7 +48,7 @@ namespace thuchanhcurd.Controllers.Activity
     {
         private readonly ILogger<ActivityController> _logger;
         private readonly EIMDBContext _context;
-
+        
         public ActivityController(EIMDBContext context, ILogger<ActivityController> logger)
         {
             _context = context;
@@ -70,20 +93,15 @@ namespace thuchanhcurd.Controllers.Activity
 
                 var count = data.Count();
                 var jdata = JTableHelper.JObjectTable(data.ToList(), jTablePara.Draw, count, "ID", "ActivityCode", "Title", "Duration", "Unit", "Located", "Status", "Desc", "ShapeJson", "Group", "Type", "WorkflowCode", "CreatedBy", "CreatedTime", "UpdatedBy", "UpdatedTime", "DeletedBy", "DeletedTime", "IsDeleted", "NestedWF", "RoleDefault", "ListGroupData");
-                return Json(jdata);
+                return jdata;
             }
             catch (Exception ex)
             {
                 var jdata = JTableHelper.JObjectTable(new List<object>(), jTablePara.Draw, 0, "ID", "ActivityCode", "Title", "Duration", "Unit", "Located", "Status", "Desc", "ShapeJson", "Group", "Type", "WorkflowCode", "CreatedBy", "CreatedTime", "UpdatedBy", "UpdatedTime", "DeletedBy", "DeletedTime", "IsDeleted", "NestedWF", "RoleDefault", "ListGroupData");
-                return Json(jdata);
+                return jdata;
             }
         }
-
-        private object Json(Newtonsoft.Json.Linq.JObject jdata)
-        {
-            throw new NotImplementedException();
-        }
-
+     
         public class ModelCast
         {
             internal readonly int Draw;
