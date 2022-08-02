@@ -63,16 +63,44 @@ namespace thuchanhcurd.Controllers
                          x.RoleDefault,
                          x.ListGroupData,
                      });
-
+                // Way 2 use SQL like LINQ syntax
+                var data2 = from a in _context.Activitys
+                            
+                            select new
+                            {
+                                a.ID,
+                                a.ActivityCode,
+                                a.Title,
+                                a.Duration,
+                                a.Unit,
+                                a.Located,
+                                a.Status,
+                                a.Desc,
+                                a.ShapeJson,
+                                a.Group,
+                                a.Type,
+                                a.WorkflowCode,
+                                a.CreatedBy,
+                                a.CreatedTime,
+                                a.UpdatedBy,
+                                a.UpdatedTime,
+                                a.DeletedBy,
+                                a.DeletedTime,
+                                a.IsDeleted,
+                                a.NestedWF,
+                                a.RoleDefault,
+                                a.ListGroupData,
+                            };
+                // End
 
                 var count = data.Count();
                 var data1 = data.OrderUsingSortExpression(jTablePara.QueryOrderBy).Skip(intBeginFor).Take(jTablePara.Length).AsNoTracking().ToList();
-                var jdata = JTableHelper.JObjectTable(data1.ToList(), jTablePara.Draw, count, "ActivityCode", "Title",  "Status",  "Group", "Type", "WorkflowCode");
+                var jdata = JTableHelper.JObjectTable(data1.ToList(), jTablePara.Draw, count, "ActivityCode", "Duration", "Unit", "Located", "Title",  "Status", "Desc", "ShapeJson", "Group", "Type", "WorkflowCode", "CreatedBy", "CreatedTime", "UpdatedBy", "UpdatedTime", "DeletedBy", "DeletedTime", "IsDeleted", "NestedWF", "RoleDefault", "ListGroupData");
                 return Json(jdata);
             }
             catch (Exception ex)
             {
-                var jdata = JTableHelper.JObjectTable(new List<object>(), jTablePara.Draw, 0, "ActivityCode", "Title", "Status",  "Group", "Type", "WorkflowCode");
+                var jdata = JTableHelper.JObjectTable(new List<object>(), jTablePara.Draw, 0, "ActivityCode", "Duration", "Unit", "Located", "Title", "Status", "Desc", "ShapeJson", "Group", "Type", "WorkflowCode", "CreatedBy", "CreatedTime", "UpdatedBy", "UpdatedTime", "DeletedBy", "DeletedTime", "IsDeleted", "NestedWF", "RoleDefault", "ListGroupData");
                 return Json(jdata);
             }
         }
