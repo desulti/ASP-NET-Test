@@ -7,6 +7,27 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
+using ESEIM.Models;
+using ESEIM.Utils;
+using FTU.Utils.HelperNet;
+using III.Domain.Enums;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.Extensions.Localization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
 
 namespace thuchanhcurd.Controllers
 {
@@ -28,43 +49,8 @@ namespace thuchanhcurd.Controllers
         {
             try
             {
-                // Chỗ if này xóa đi.Không có tác dụng
-                if (string.IsNullOrEmpty(jTablePara.ActivityCode))
-                {
-                    return JTableHelper.JObjectTable(new List<object>(), jTablePara.Draw, 0, "ActivityCode", "Title", "Status", "Group", "Type", "WorkflowCode");
-                }
-
                 int intBeginFor = (jTablePara.CurrentPage - 1) * jTablePara.Length;
 
-                // Way 1 using Where
-                /*var data = _context.Activitys
-               .Select(
-                     x => new
-                     {
-                         x.ID,
-                         x.ActivityCode,
-                         x.Title,
-                         x.Duration,
-                         x.Unit,
-                         x.Located,
-                         x.Status,
-                         x.Desc,
-                         x.ShapeJson,
-                         x.Group,
-                         x.Type,
-                         x.WorkflowCode,
-                         x.CreatedBy,
-                         x.CreatedTime,
-                         x.UpdatedBy,
-                         x.UpdatedTime,
-                         x.DeletedBy,
-                         x.DeletedTime,
-                         x.IsDeleted,
-                         x.NestedWF,
-                         x.RoleDefault,
-                         x.ListGroupData,
-                     });*/
-                // Way 2 use SQL like LINQ syntax
                 var query = from a in _context.Activitys                            
                             select new
                             {
@@ -92,7 +78,7 @@ namespace thuchanhcurd.Controllers
                                 a.ListGroupData,
                             };
                 var count = query.Count();
-                var data = query.AsQueryable().OrderUsingSortExpression(jTablePara.QueryOrderBy).Skip(intBeginFor).Take(jTablePara.Length).AsNoTracking().ToList();
+                var data = query.OrderUsingSortExpression(jTablePara.QueryOrderBy).Skip(intBeginFor).Take(jTablePara.Length).AsNoTracking().ToList();
                 var jdata = JTableHelper.JObjectTable(data.ToList(), jTablePara.Draw, count, "ActivityCode", "Duration", "Unit", "Located", "Title",  "Status", "Desc", "ShapeJson", "Group", "Type", "WorkflowCode", "CreatedBy", "CreatedTime", "UpdatedBy", "UpdatedTime", "DeletedBy", "DeletedTime", "IsDeleted", "NestedWF", "RoleDefault", "ListGroupData");
                 return Json(jdata);
             }
