@@ -28,6 +28,7 @@ namespace thuchanhcurd.Controllers
         {
             try
             {
+                // Chỗ if này xóa đi.Không có tác dụng
                 if (string.IsNullOrEmpty(jTablePara.ActivityCode))
                 {
                     return JTableHelper.JObjectTable(new List<object>(), jTablePara.Draw, 0, "ActivityCode", "Title", "Status", "Group", "Type", "WorkflowCode");
