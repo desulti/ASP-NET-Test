@@ -28,6 +28,13 @@ namespace thuchanhcurd.Controllers
         {
             try
             {
+                if (string.IsNullOrEmpty(jTablePara.ActivityCode))
+                {
+                    return JTableHelper.JObjectTable(new List<object>(), jTablePara.Draw, 0, "ActivityCode", "Title", "Status", "Group", "Type", "WorkflowCode");
+                }
+
+                int intBeginFor = (jTablePara.CurrentPage - 1) * jTablePara.Length;
+
                 // Way 1 using Where
                 var data = _context.Activitys
                .Select(
@@ -36,27 +43,42 @@ namespace thuchanhcurd.Controllers
                          x.ID,
                          x.ActivityCode,
                          x.Title,
+                         x.Duration,
+                         x.Unit,
+                         x.Located,
                          x.Status,
+                         x.Desc,
+                         x.ShapeJson,
                          x.Group,
                          x.Type,
                          x.WorkflowCode,
+                         x.CreatedBy,
+                         x.CreatedTime,
+                         x.UpdatedBy,
+                         x.UpdatedTime,
+                         x.DeletedBy,
+                         x.DeletedTime,
+                         x.IsDeleted,
+                         x.NestedWF,
+                         x.RoleDefault,
+                         x.ListGroupData,
                      });
 
 
                 var count = data.Count();
-                var jdata = JTableHelper.JObjectTable(data.ToList(), jTablePara.Draw, count, "ID", "ActivityCode", "Title",  "Status",  "Group", "Type", "WorkflowCode");
+                var data1 = data.OrderUsingSortExpression(jTablePara.QueryOrderBy).Skip(intBeginFor).Take(jTablePara.Length).AsNoTracking().ToList();
+                var jdata = JTableHelper.JObjectTable(data1.ToList(), jTablePara.Draw, count, "ActivityCode", "Title",  "Status",  "Group", "Type", "WorkflowCode");
                 return Json(jdata);
             }
             catch (Exception ex)
             {
-                var jdata = JTableHelper.JObjectTable(new List<object>(), jTablePara.Draw, 0, "ID", "ActivityCode", "Title", "Status",  "Group", "Type", "WorkflowCode");
+                var jdata = JTableHelper.JObjectTable(new List<object>(), jTablePara.Draw, 0, "ActivityCode", "Title", "Status",  "Group", "Type", "WorkflowCode");
                 return Json(jdata);
             }
         }
         public class ModelActivity : JTableModel
         {
-            internal readonly int Draw;
-
+          
             public int ID { get; set; }
 
             public string ActivityCode { get; set; }
